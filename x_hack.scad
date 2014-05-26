@@ -49,6 +49,7 @@ difference() {
   // import the original idler, beef up the mount and make room for the new nut
   union() {
     translate(idler_z_nut_center_loc) x_idler_end();
+	translate([-12,-10.5,0]) cube([27,23,14]);
   }
   cylinder(r=acme_nut_shaft_od/2, h=acme_nut_shaft_z);
 }
