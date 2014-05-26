@@ -22,6 +22,11 @@ idler_z_nut_center_loc=[32.5,-13,0];
 idler_z_nut_height=14;
 idler_z_base_exterior=18.4; // distance from outer edge of the idler frame to where the nut trap base starts
 
+motor_z_nut_center_loc=[31,-89.5,0];
+motor_z_nut_height=14;
+motor_z_base_exterior=18.4; // distance from outer edge of the idler frame to where the nut trap base starts
+
+
 module x_idler_end() {
   import("/Users/bilsch/tmp/XIdleEndOB14.stl");
 }
@@ -45,11 +50,35 @@ module acme_nut() {
   }
 }
 
-difference() {
-  // import the original idler, beef up the mount and make room for the new nut
-  union() {
-    translate(idler_z_nut_center_loc) x_idler_end();
-	translate([-12,-10.5,0]) cube([27,23,14]);
+/*
+ * TODOs:
+ * 1) Still need to inspect the modifications on both pieces to make sure they are 'right' ( eg, no funky little bumps/divets )
+ * 2) Still need to put the m3 holes in
+ * 3) test ;)
+*/
+
+module hacked_x_idler() {
+  difference() {
+    // import the original idler, beef up the mount and make room for the new nut
+    union() {
+      translate(idler_z_nut_center_loc) x_idler_end();
+	  translate([-12,-10.5,0]) cube([27,23,14]);
+    }
+    cylinder(r=acme_nut_shaft_od/2, h=acme_nut_shaft_z);
   }
-  cylinder(r=acme_nut_shaft_od/2, h=acme_nut_shaft_z);
 }
+
+module hacked_x_motor() {
+  difference() {
+    union() {
+      translate(motor_z_nut_center_loc) x_motor_end();
+	  translate([-13,-14,0]) cube([28,24.5,14]);
+    }
+    cylinder(r=acme_nut_shaft_od/2, h=acme_nut_shaft_z);
+  }
+}
+
+// pick one!
+echo("read the source ;)");
+// hacked_x_idler();
+// hacked_x_motor();
