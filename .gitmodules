@@ -1,0 +1,3 @@
+[submodule "Prusa3"]
+	path = Prusa3
+	url = https://github.com/josefprusa/Prusa3.git
